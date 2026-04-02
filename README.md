@@ -322,19 +322,6 @@ Observed Studio profile:
 }
 ```
 
-### Quick Inconclusive Test
-
-Use only one source to force a likely inconclusive path:
-
-```json
-{
-  "company_id": "GOOGLE_REAL_DEMO",
-  "official_report_url": "https://blog.google/outreach-initiatives/sustainability/google-2025-environmental-report/",
-  "iot_sensor_url": "",
-  "ngo_watchdog_url": ""
-}
-```
-
 ## Example Real Entity For Studio Read Testing
 
 The Studio contract currently returns data for at least:
