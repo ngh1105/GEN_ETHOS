@@ -1,0 +1,10 @@
+node_modules/
+.next/
+test-results/
+.env.local
+dev-server.out.log
+dev-server.err.log
+studionet-dev.out.log
+studionet-dev.err.log
+Out-Null
+npm-debug.log*
