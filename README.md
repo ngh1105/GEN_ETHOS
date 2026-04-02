@@ -1,77 +1,313 @@
 # GEN-ETHOS
 
-GEN-ETHOS is a verification and enforcement layer for corporate claims.
+GEN-ETHOS is a GenLayer-based verification and enforcement layer for corporate claims.
 
-Companies make sustainability and compliance claims every day, but most of those claims are still self-reported, slow to verify, and largely consequence-free. GEN-ETHOS turns a public claim into a staked commitment: the company escrows value, decentralized AI validators compare independent evidence, and the protocol records a public verdict with reputational and economic consequences.
+The project turns a public company disclosure into a staked commitment. A company registers a target, escrows value behind it, submits evidence, and lets decentralized AI validators compare that claim against public sources. The result is not just a dashboard entry. It becomes a recorded verdict with visible reputational and economic consequences.
 
-We start with environmental disclosure and greenwashing, but the same primitive can extend to supply chain claims, vendor compliance, impact reporting, and other corporate disclosures where trust matters.
+The current MVP focuses on ESG and emissions-style claims, but the same primitive can extend to supply-chain assertions, vendor compliance, reporting integrity, and other categories of real-world corporate disclosure.
 
-## Why It Matters
+## Problem
 
-- Corporate claims are cheap to publish.
-- Verification is fragmented and slow.
-- Public trust is low because consequences are weak.
-- AI makes it easier to generate polished claims, which makes verifiable trust more important.
+Corporate claims are easy to publish and expensive to verify.
 
-## What GEN-ETHOS Does
+- Most disclosures are still self-reported.
+- Third-party verification is fragmented and slow.
+- Public consequences for false or overstated claims are weak.
+- AI makes polished reporting easier to generate, which increases the need for verifiable trust.
 
-1. A company registers a public claim target.
-2. The company stakes escrow behind that claim.
+GEN-ETHOS is built around one simple idea: if a company makes a claim publicly, that claim should be challengeable, auditable, and costly to misrepresent.
+
+## What The Protocol Does
+
+GEN-ETHOS currently supports this flow:
+
+1. A company registers a public reduction target.
+2. The company deposits escrow tied to that claim.
 3. The owner submits an audit request with evidence URLs.
-4. GenLayer validators independently evaluate the evidence.
-5. The protocol records a verdict: `COMPLIANT`, `MINOR_VIOLATION`, `VIOLATION`, or `INCONCLUSIVE`.
-6. The system updates reputation and escrow outcomes through unlocks, slashing, and a public audit history.
+4. GenLayer validators independently read and reason over the submitted evidence.
+5. The protocol records a verdict:
+   - `COMPLIANT`
+   - `MINOR_VIOLATION`
+   - `VIOLATION`
+   - `INCONCLUSIVE`
+6. The system updates the company score and escrow outcome based on the verdict.
+7. The public explorer shows the latest state and audit history.
 
 ## Why GenLayer
 
-GEN-ETHOS needs more than a normal smart contract.
+GEN-ETHOS needs more than a deterministic contract.
 
-- It must read real-world evidence from public web sources.
-- It must reason over non-deterministic inputs.
-- It must reach validator consensus on natural-language outputs.
+- It must read public web evidence.
+- It must reason over non-deterministic, natural-language inputs.
+- It must reach validator consensus on outputs that are not purely arithmetic.
 
-GenLayer is the right execution layer because it supports web access, AI-assisted reasoning, and equivalence-based validator consensus in a single application flow.
+GenLayer is the execution layer that makes this possible, because it combines web access, AI-assisted reasoning, and validator consensus in one application flow.
 
-## Current MVP Scope
+## MVP Scope
 
-The current MVP focuses on one concrete use case:
+This repo is optimized for a hackathon MVP, not a generalized production protocol.
 
-- public company-style ESG / emissions claims
+Current scope:
+
+- company-style ESG / emissions claims
 - escrow-backed accountability
-- decentralized audit requests
-- public explorer for scores, balances, and audit history
+- decentralized AI audit requests
+- public explorer for scores, balances, and verdict history
+- live testnet demos on GenLayer-compatible networks
 
-Core demo flow:
+## Repository Structure
 
-1. Register company
-2. Deposit escrow
-3. Request audit
-4. Receive verdict
-5. Show slash or unlock impact
-6. Inspect public history in Explorer
+- [contracts/gen_ethos.py](contracts/gen_ethos.py): main GenLayer contract
+- [frontend](frontend): primary Next.js frontend configured for Bradbury-style testnet usage
+- [gen-ethos-studionet](gen-ethos-studionet): backup copy configured for Studio network
+- [docs/pitch.md](docs/pitch.md): pitch script and messaging
+- [docs/slides.md](docs/slides.md): slide-outline content
 
-## Repository Layout
+## Architecture
 
-- [contracts/gen_ethos.py](contracts/gen_ethos.py): GenLayer contract
-- [frontend](frontend): Next.js app
-- [frontend/README.md](frontend/README.md): frontend setup and scripts
-- [docs/pitch.md](docs/pitch.md): pitch script, slide outline, and demo flow
-- [docs/slides.md](docs/slides.md): copy-ready slide deck content
+The system has two main pieces:
+
+### 1. Contract Layer
+
+The contract manages:
+
+- company registration
+- escrow deposits
+- audit requests
+- verdict storage
+- company score updates
+- slash / unlock accounting
+- company profile and audit-history reads
+
+Main contract file:
+
+- [gen_ethos.py](contracts/gen_ethos.py)
+
+### 2. Frontend Layer
+
+The frontend provides three core flows:
+
+- Onboarding
+  - register company
+  - deposit escrow
+- Audit Engine
+  - submit live evidence URLs
+  - track transaction / consensus status
+- Explorer
+  - inspect company profile
+  - inspect score, escrow, withdrawable amount
+  - inspect audit history
+
+Frontend entry points:
+
+- [page.tsx](frontend/src/app/page.tsx)
+- [onboarding/page.tsx](frontend/src/app/onboarding/page.tsx)
+- [audit-engine/page.tsx](frontend/src/app/audit-engine/page.tsx)
+- [explorer/page.tsx](frontend/src/app/explorer/page.tsx)
+
+## Network Modes In This Repo
+
+This project currently contains two frontend variants.
+
+### Primary Frontend
+
+Location:
+
+- [frontend](frontend)
+
+Current purpose:
+
+- main working app
+- Bradbury-oriented configuration
+- used for the original live testnet flow
+
+### Studio Backup Frontend
+
+Location:
+
+- [gen-ethos-studionet/frontend](gen-ethos-studionet/frontend)
+
+Current purpose:
+
+- backup environment when Bradbury testnet is unstable
+- Studio RPC configuration
+- separate contract address and network setup
+
+Current Studio contract address configured in:
+
+- [`.env.local`](gen-ethos-studionet/frontend/.env.local)
+
+## Quick Start
+
+### Option A: Run The Main Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Default local URL:
+
+```text
+http://localhost:3000
+```
+
+### Option B: Run The Studio Backup Frontend
+
+```bash
+cd gen-ethos-studionet/frontend
+npm install
+npm run dev -- --port 3001
+```
+
+Default local URL:
+
+```text
+http://localhost:3001
+```
+
+## Environment Variables
+
+### Main Frontend
+
+File:
+
+- [frontend/.env.local](frontend/.env.local)
+
+Typical values:
+
+```bash
+NEXT_PUBLIC_GENLAYER_RPC=https://rpc-bradbury.genlayer.com
+NEXT_PUBLIC_CONTRACT_ADDRESS=0xYOUR_DEPLOYED_CONTRACT_ADDRESS
+```
+
+### Studio Backup Frontend
+
+File:
+
+- [gen-ethos-studionet/frontend/.env.local](gen-ethos-studionet/frontend/.env.local)
+
+Current values:
+
+```bash
+NEXT_PUBLIC_GENLAYER_RPC=https://studio.genlayer.com/api
+NEXT_PUBLIC_CONTRACT_ADDRESS=0x34AE1198bef2447A2e33ed80C9E89F2DB70617A5
+```
+
+Important:
+
+- Contract addresses are network-specific.
+- A Bradbury deployment address cannot be reused on Studio.
+- Explorer URLs can differ from RPC URLs and may still be intentionally pointed to a preferred explorer UX.
+
+## Wallet / Network Setup
+
+The app relies on an EIP-1193 wallet such as MetaMask.
+
+### Bradbury-Oriented Setup
+
+- Chain ID: `4221`
+- RPC: `https://rpc-bradbury.genlayer.com`
+
+### Studio Backup Setup
+
+- Chain ID: `61999`
+- RPC: `https://studio.genlayer.com/api`
+
+If MetaMask already has an older custom network with the same chain ID, it may switch to that chain without replacing the stored RPC URL. In practice, that can cause transaction behavior to differ from what the app expects.
+
+## Demo Flow
+
+Recommended end-to-end flow for a live demo:
+
+1. Register a company.
+2. Deposit escrow.
+3. Submit an audit with real `https://` evidence URLs.
+4. Wait for the verdict / transaction state to settle.
+5. Open Explorer and inspect:
+   - company score
+   - escrow balance
+   - latest verdict
+   - audit history
+
+## Example Real Entity For Studio Read Testing
+
+The Studio contract currently returns data for at least:
+
+- `nike`
+
+Example read result observed from Studio:
+
+- `company_id: "nike"`
+- `target_reduction: "30"`
+- `ethos_score: 100`
+- `audit_count: 0`
+
+This is useful for quickly validating that the Studio read path is alive.
+
+## Current Known Network Notes
+
+During recent testing:
+
+- Bradbury testnet showed upstream RPC instability on contract reads.
+- Explorer pages could still be available while `readContract` calls timed out.
+- Studio network read calls were observed returning normally.
+
+That means:
+
+- if Bradbury feels slow or inconsistent, it may be a network issue rather than an app logic issue
+- the Studio backup exists specifically to keep the demo unblocked
+
+## Frontend Quality / Recent Improvements
+
+The current frontend includes a few important fixes made during testing:
+
+- safer parsing for numeric contract return values
+- better receipt status parsing for newer `genlayer-js` response shapes
+- faster transaction polling
+- light-mode-only UI lock to avoid theme mismatch during demos
+- Studio backup frontend with separate network configuration
+
+## Scripts
+
+Both frontend variants expose the same main scripts:
+
+```bash
+npm run dev
+npm run build
+npm run start
+npm run lint
+npm run test
+npm run test:e2e
+```
 
 ## Product Positioning
 
-GEN-ETHOS is not just an ESG dashboard.
+GEN-ETHOS is not an ESG dashboard.
 
-It is a protocol primitive for turning real-world corporate claims into commitments that can be challenged, evaluated, and economically enforced.
+It is a trust primitive for turning corporate disclosures into commitments that can be challenged, evaluated, and economically enforced.
+
+The key product wedge is simple:
+
+- claims become stake-backed
+- audits become decentralized
+- outcomes become public
+- consequences become visible
+
+## Related Docs
+
+- [Frontend README](frontend/README.md)
+- [Studio Frontend README](gen-ethos-studionet/frontend/README.md)
+- [Pitch Pack](docs/pitch.md)
+- [Slides Outline](docs/slides.md)
 
 ## Status
 
 Hackathon MVP.
 
-The system is optimized for a clear end-to-end demonstration of:
+The repo is currently optimized for:
 
-- claim registration
-- escrow-backed accountability
-- GenLayer consensus-based audits
-- public verdict history
-- visible economic consequences
+- an end-to-end live demo
+- iterative testnet debugging
+- a clear story around escrow-backed accountability for corporate claims
