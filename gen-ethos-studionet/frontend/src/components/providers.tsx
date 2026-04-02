@@ -5,7 +5,7 @@ import { useState, type ReactNode } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { WagmiProvider } from "wagmi";
 import { RainbowKitProvider, lightTheme } from "@rainbow-me/rainbowkit";
-import { wagmiConfig, genlayerTestnet } from "@/lib/wagmi";
+import { wagmiConfig, genlayerStudioNetwork } from "@/lib/wagmi";
 import "@rainbow-me/rainbowkit/styles.css";
 
 interface ProvidersProps {
@@ -34,7 +34,7 @@ export function Providers({ children }: ProvidersProps) {
     <WagmiProvider config={wagmiConfig}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider
-          initialChain={genlayerTestnet}
+          initialChain={genlayerStudioNetwork}
           theme={lightTheme({
             borderRadius: "none",
             accentColor: "#CCFF00",

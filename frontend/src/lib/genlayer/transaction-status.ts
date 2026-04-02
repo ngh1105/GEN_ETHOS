@@ -6,6 +6,8 @@ type ReceiptLike = {
   status_name?: unknown;
 };
 
+const statusMap = transactionsStatusNumberToName as Record<string, string>;
+
 export function getReceiptStatusName(receipt: ReceiptLike): string {
   if (typeof receipt.statusName === "string" && receipt.statusName.length > 0) {
     return receipt.statusName;
@@ -16,11 +18,11 @@ export function getReceiptStatusName(receipt: ReceiptLike): string {
   }
 
   if (typeof receipt.status === "number") {
-    return transactionsStatusNumberToName[String(receipt.status)] ?? String(receipt.status);
+    return statusMap[String(receipt.status)] ?? String(receipt.status);
   }
 
   if (typeof receipt.status === "bigint") {
-    return transactionsStatusNumberToName[receipt.status.toString()] ?? receipt.status.toString();
+    return statusMap[receipt.status.toString()] ?? receipt.status.toString();
   }
 
   return typeof receipt.status === "string"
