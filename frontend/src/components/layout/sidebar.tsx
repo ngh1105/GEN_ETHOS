@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -7,7 +8,6 @@ import {
   Buildings,
   Brain,
   MagnifyingGlass,
-  ShieldCheck,
   List,
   ArrowSquareOut
 } from "@phosphor-icons/react";
@@ -57,8 +57,15 @@ export function Sidebar() {
         {/* Brand */}
         <div className="p-6 flex items-center justify-between border-b-2 border-black dark:border-white h-20">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 flex items-center justify-center shrink-0 border-2 border-black bg-[#CCFF00] text-black shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] dark:border-[#CCFF00] dark:shadow-[2px_2px_0px_0px_#CCFF00]">
-              <ShieldCheck className="h-6 w-6" weight="bold" />
+            <div className="flex h-12 w-12 items-center justify-center shrink-0 overflow-hidden border-2 border-black bg-[#F5F5F0] shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+              <Image
+                src="/gen-ethos-logo-480.png"
+                alt="GEN-ETHOS logo"
+                width={40}
+                height={40}
+                className="h-10 w-10 object-contain"
+                priority
+              />
             </div>
             {!collapsed && (
               <div className="flex flex-col overflow-hidden">
@@ -66,7 +73,7 @@ export function Sidebar() {
                   GEN-ETHOS
                 </span>
                 <span className="text-[10px] font-black uppercase tracking-widest mt-1 text-black dark:text-[#CCFF00]">
-                  Intelligence
+                  Computed Trust
                 </span>
               </div>
             )}

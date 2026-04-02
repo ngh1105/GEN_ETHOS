@@ -89,6 +89,50 @@ Recommended live demo flow:
 4. Show verdict card and transaction status
 5. Open Explorer and show score, escrow, unlocked amount, and audit history
 
+## Real Test Data
+
+### Studio Read Test
+
+The Studio deployment currently returns data for:
+
+```json
+{
+  "company_id": "nike"
+}
+```
+
+Expected shape:
+
+```json
+{
+  "company_id": "nike",
+  "target_reduction": "30",
+  "ethos_score": 100,
+  "audit_count": 0
+}
+```
+
+### Real Audit Bundle
+
+```json
+{
+  "register": {
+    "company_id": "AMAZON_REAL_DEMO_2",
+    "target_reduction_percentage": "100"
+  },
+  "deposit": {
+    "company_id": "AMAZON_REAL_DEMO_2",
+    "amount": "600"
+  },
+  "audit": {
+    "company_id": "AMAZON_REAL_DEMO_2",
+    "official_report_url": "https://www.aboutamazon.com/news/sustainability/amazon-sustainability-report-2024",
+    "iot_sensor_url": "https://publications.stand.earth/prime-polluter/",
+    "ngo_watchdog_url": "https://www.amazonclimatejustice.org/our-research"
+  }
+}
+```
+
 ## Why GenLayer
 
 GEN-ETHOS needs more than a deterministic contract:

@@ -231,6 +231,110 @@ Recommended end-to-end flow for a live demo:
    - latest verdict
    - audit history
 
+## Real Test Data
+
+These are real, public URLs the team can use for manual testing on the live DApp.
+
+Important notes before testing:
+
+- `register` requires a fresh, globally unique `company_id`
+- `deposit` must be sent by the same wallet that registered the company
+- `audit` should use public `https://` URLs
+- live verdicts can vary slightly because validators read current web content
+
+### Studio Quick Read Test
+
+If the team only wants to confirm Studio reads are alive, use:
+
+- `company_id`: `nike`
+
+Observed Studio profile:
+
+```json
+{
+  "company_id": "nike",
+  "target_reduction": "30",
+  "ethos_score": 100,
+  "audit_count": 0
+}
+```
+
+### Real Demo Bundle 1: Amazon
+
+```json
+{
+  "register": {
+    "company_id": "AMAZON_REAL_DEMO_2",
+    "target_reduction_percentage": "100"
+  },
+  "deposit": {
+    "company_id": "AMAZON_REAL_DEMO_2",
+    "amount": "600"
+  },
+  "audit": {
+    "company_id": "AMAZON_REAL_DEMO_2",
+    "official_report_url": "https://www.aboutamazon.com/news/sustainability/amazon-sustainability-report-2024",
+    "iot_sensor_url": "https://publications.stand.earth/prime-polluter/",
+    "ngo_watchdog_url": "https://www.amazonclimatejustice.org/our-research"
+  }
+}
+```
+
+### Real Demo Bundle 2: Apple
+
+```json
+{
+  "register": {
+    "company_id": "APPLE_REAL_DEMO_2",
+    "target_reduction_percentage": "60"
+  },
+  "deposit": {
+    "company_id": "APPLE_REAL_DEMO_2",
+    "amount": "450"
+  },
+  "audit": {
+    "company_id": "APPLE_REAL_DEMO_2",
+    "official_report_url": "https://www.apple.com/newsroom/2025/04/apple-surpasses-60-percent-reduction-in-global-greenhouse-gas-emissions/",
+    "iot_sensor_url": "https://www.apple.com/environment/reports/",
+    "ngo_watchdog_url": "https://www.greenpeace.org/static/planet4-eastasia-stateless/2022/10/89382b33-supplychange.pdf"
+  }
+}
+```
+
+### Real Demo Bundle 3: Google
+
+```json
+{
+  "register": {
+    "company_id": "GOOGLE_REAL_DEMO",
+    "target_reduction_percentage": "100"
+  },
+  "deposit": {
+    "company_id": "GOOGLE_REAL_DEMO",
+    "amount": "500"
+  },
+  "audit": {
+    "company_id": "GOOGLE_REAL_DEMO",
+    "official_report_url": "https://blog.google/outreach-initiatives/sustainability/google-2025-environmental-report/",
+    "iot_sensor_url": "https://www.greenpeace.org/eastasia/press/7698/microsoft-google-reliant-on-fossil-fuels-despite-100-renewable-energy-pledges-study/",
+    "ngo_watchdog_url": "https://stand.earth/wp-content/uploads/2025/09/Crossroads-Report-SEPT-15.pdf"
+  }
+}
+```
+
+### Quick Inconclusive Test
+
+Use only one source to force a likely inconclusive path:
+
+```json
+{
+  "company_id": "GOOGLE_REAL_DEMO",
+  "official_report_url": "https://blog.google/outreach-initiatives/sustainability/google-2025-environmental-report/",
+  "iot_sensor_url": "",
+  "ngo_watchdog_url": ""
+}
+```
+
 ## Example Real Entity For Studio Read Testing
 
 The Studio contract currently returns data for at least:

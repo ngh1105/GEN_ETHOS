@@ -88,6 +88,68 @@ Recommended live demo flow:
 4. Show verdict card and transaction status
 5. Open Explorer and show score, escrow, unlocked amount, and audit history
 
+## Real Test Data
+
+Use these real, public URLs for manual testing.
+
+Important:
+
+- Use a fresh `company_id` when registering.
+- The wallet that registers the company must also deposit escrow.
+- Audit URLs should be public `https://` links.
+
+### Studio Read Check
+
+If you are on the Studio deployment, use:
+
+```json
+{
+  "company_id": "nike"
+}
+```
+
+### Amazon Test Bundle
+
+```json
+{
+  "register": {
+    "company_id": "AMAZON_REAL_DEMO_2",
+    "target_reduction_percentage": "100"
+  },
+  "deposit": {
+    "company_id": "AMAZON_REAL_DEMO_2",
+    "amount": "600"
+  },
+  "audit": {
+    "company_id": "AMAZON_REAL_DEMO_2",
+    "official_report_url": "https://www.aboutamazon.com/news/sustainability/amazon-sustainability-report-2024",
+    "iot_sensor_url": "https://publications.stand.earth/prime-polluter/",
+    "ngo_watchdog_url": "https://www.amazonclimatejustice.org/our-research"
+  }
+}
+```
+
+### Apple Test Bundle
+
+```json
+{
+  "register": {
+    "company_id": "APPLE_REAL_DEMO_2",
+    "target_reduction_percentage": "60"
+  },
+  "deposit": {
+    "company_id": "APPLE_REAL_DEMO_2",
+    "amount": "450"
+  },
+  "audit": {
+    "company_id": "APPLE_REAL_DEMO_2",
+    "official_report_url": "https://www.apple.com/newsroom/2025/04/apple-surpasses-60-percent-reduction-in-global-greenhouse-gas-emissions/",
+    "iot_sensor_url": "https://www.apple.com/environment/reports/",
+    "ngo_watchdog_url": "https://www.greenpeace.org/static/planet4-eastasia-stateless/2022/10/89382b33-supplychange.pdf"
+  }
+}
+```
+
 ## Why GenLayer
 
 GEN-ETHOS needs more than a deterministic contract:
