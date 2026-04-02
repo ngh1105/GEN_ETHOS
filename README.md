@@ -1,5 +1,7 @@
 # GEN-ETHOS
 
+Current live DApp note: Bradbury testnet has been unstable during testing, especially on contract reads and transaction consistency, so the working DApp currently uses GenLayer Studio Network for demos and team testing.
+
 GEN-ETHOS is a GenLayer-based verification and enforcement layer for corporate claims.
 
 The project turns a public company disclosure into a staked commitment. A company registers a target, escrows value behind it, submits evidence, and lets decentralized AI validators compare that claim against public sources. The result is not just a dashboard entry. It becomes a recorded verdict with visible reputational and economic consequences.
@@ -105,55 +107,18 @@ Frontend entry points:
 - [audit-engine/page.tsx](frontend/src/app/audit-engine/page.tsx)
 - [explorer/page.tsx](frontend/src/app/explorer/page.tsx)
 
-## Network Modes In This Repo
+## Current Deployment Focus
 
-This project currently contains two frontend variants.
+This repository keeps both network variants:
 
-### Primary Frontend
+- [frontend](frontend): Bradbury-oriented frontend
+- [gen-ethos-studionet/frontend](gen-ethos-studionet/frontend): Studio frontend used for the current live demo path
 
-Location:
-
-- [frontend](frontend)
-
-Current purpose:
-
-- main working app
-- Bradbury-oriented configuration
-- used for the original live testnet flow
-
-### Studio Backup Frontend
-
-Location:
-
-- [gen-ethos-studionet/frontend](gen-ethos-studionet/frontend)
-
-Current purpose:
-
-- backup environment when Bradbury testnet is unstable
-- Studio RPC configuration
-- separate contract address and network setup
-
-Current Studio contract address configured in:
-
-- [`.env.local`](gen-ethos-studionet/frontend/.env.local)
+Right now, the recommended demo and team testing path is the Studio version because Bradbury testnet has shown unstable read behavior and inconsistent transaction processing during live testing.
 
 ## Quick Start
 
-### Option A: Run The Main Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Default local URL:
-
-```text
-http://localhost:3000
-```
-
-### Option B: Run The Studio Backup Frontend
+### Option A: Run The Current Studio DApp
 
 ```bash
 cd gen-ethos-studionet/frontend
@@ -167,22 +132,23 @@ Default local URL:
 http://localhost:3001
 ```
 
-## Environment Variables
-
-### Main Frontend
-
-File:
-
-- [frontend/.env.local](frontend/.env.local)
-
-Typical values:
+### Option B: Run The Bradbury Variant
 
 ```bash
-NEXT_PUBLIC_GENLAYER_RPC=https://rpc-bradbury.genlayer.com
-NEXT_PUBLIC_CONTRACT_ADDRESS=0xYOUR_DEPLOYED_CONTRACT_ADDRESS
+cd frontend
+npm install
+npm run dev
 ```
 
-### Studio Backup Frontend
+Default local URL:
+
+```text
+http://localhost:3000
+```
+
+## Environment Variables
+
+### Current Studio DApp
 
 File:
 
@@ -195,6 +161,19 @@ NEXT_PUBLIC_GENLAYER_RPC=https://studio.genlayer.com/api
 NEXT_PUBLIC_CONTRACT_ADDRESS=0x34AE1198bef2447A2e33ed80C9E89F2DB70617A5
 ```
 
+### Bradbury Variant
+
+File:
+
+- [frontend/.env.local](frontend/.env.local)
+
+Typical values:
+
+```bash
+NEXT_PUBLIC_GENLAYER_RPC=https://rpc-bradbury.genlayer.com
+NEXT_PUBLIC_CONTRACT_ADDRESS=0xYOUR_DEPLOYED_CONTRACT_ADDRESS
+```
+
 Important:
 
 - Contract addresses are network-specific.
@@ -205,15 +184,15 @@ Important:
 
 The app relies on an EIP-1193 wallet such as MetaMask.
 
-### Bradbury-Oriented Setup
-
-- Chain ID: `4221`
-- RPC: `https://rpc-bradbury.genlayer.com`
-
-### Studio Backup Setup
+### Current Recommended Setup
 
 - Chain ID: `61999`
 - RPC: `https://studio.genlayer.com/api`
+
+### Bradbury Variant Setup
+
+- Chain ID: `4221`
+- RPC: `https://rpc-bradbury.genlayer.com`
 
 If MetaMask already has an older custom network with the same chain ID, it may switch to that chain without replacing the stored RPC URL. In practice, that can cause transaction behavior to differ from what the app expects.
 
