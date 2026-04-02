@@ -1,10 +1,15 @@
 import type { NextConfig } from "next";
 
 const isDev = process.env.NODE_ENV !== "production";
+const isVercel = process.env.VERCEL === "1";
 
 const scriptSrc = isDev
   ? "script-src 'self' 'unsafe-eval' 'unsafe-inline'"
   : "script-src 'self'";
+
+const frameAncestors = isVercel
+  ? "frame-ancestors 'self' https://vercel.com https://*.vercel.com"
+  : "frame-ancestors 'none'";
 
 const cspParts = [
   "default-src 'self'",
@@ -26,11 +31,10 @@ const cspParts = [
     "https://api.web3modal.org",
     "https://pulse.walletconnect.org",
   ].join(" "),
-  "frame-ancestors 'none'",
+  frameAncestors,
 ];
 
 const securityHeaders = [
-  { key: "X-Frame-Options", value: "DENY" },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
   {
@@ -42,6 +46,10 @@ const securityHeaders = [
     value: cspParts.join("; "),
   },
 ];
+
+if (!isVercel) {
+  securityHeaders.unshift({ key: "X-Frame-Options", value: "DENY" });
+}
 
 const nextConfig: NextConfig = {
   async headers() {
