@@ -1,8 +1,8 @@
 import { createClient } from "genlayer-js";
-import { genlayerStudioNetwork } from "@/lib/wagmi";
+import { genlayerTestnet } from "@/lib/wagmi";
 
 const rpcEndpoint =
-  process.env.NEXT_PUBLIC_GENLAYER_RPC || "https://studio.genlayer.com/api";
+  process.env.NEXT_PUBLIC_GENLAYER_RPC || "https://rpc-bradbury.genlayer.com";
 const mockModeEnabled = process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
 
 const contractAddressEnv = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
@@ -15,7 +15,7 @@ if (contractAddressEnv && !/^0x[a-fA-F0-9]{40}$/.test(contractAddressEnv)) {
 }
 
 export const client = createClient({
-  chain: genlayerStudioNetwork,
+  chain: genlayerTestnet,
   endpoint: rpcEndpoint,
 });
 

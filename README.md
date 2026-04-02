@@ -1,6 +1,6 @@
 # GEN-ETHOS
 
-Current live DApp note: Bradbury testnet has been unstable during testing, especially on contract reads and transaction consistency, so the working DApp currently uses GenLayer Studio Network for demos and team testing.
+Current live DApp note: Bradbury testnet has been unstable during testing, especially on contract reads and transaction consistency, so the working DApp currently uses the main `frontend` app for the stable demo path. The Bradbury-specific backup now lives in `gen-ethos-bradbury`.
 
 GEN-ETHOS is a GenLayer-based verification and enforcement layer for corporate claims.
 
@@ -61,7 +61,7 @@ Current scope:
 
 - [contracts/gen_ethos.py](contracts/gen_ethos.py): main GenLayer contract
 - [frontend](frontend): primary Next.js frontend configured for Bradbury-style testnet usage
-- [gen-ethos-studionet](gen-ethos-studionet): backup copy configured for Studio network
+- [gen-ethos-bradbury](gen-ethos-bradbury): backup copy configured for Bradbury network
 - [docs/pitch.md](docs/pitch.md): pitch script and messaging
 - [docs/slides.md](docs/slides.md): slide-outline content
 
@@ -109,19 +109,19 @@ Frontend entry points:
 
 ## Current Deployment Focus
 
-This repository keeps both network variants:
+This repository keeps both frontend setups:
 
-- [frontend](frontend): Bradbury-oriented frontend
-- [gen-ethos-studionet/frontend](gen-ethos-studionet/frontend): Studio frontend used for the current live demo path
+- [frontend](frontend): main frontend used for the current demo path
+- [gen-ethos-bradbury/frontend](gen-ethos-bradbury/frontend): Bradbury backup testnet app
 
-Right now, the recommended demo and team testing path is the Studio version because Bradbury testnet has shown unstable read behavior and inconsistent transaction processing during live testing.
+Right now, the recommended demo and team testing path is the main `frontend` app, while `gen-ethos-bradbury/frontend` is kept as the Bradbury-specific backup because Bradbury testnet has shown unstable read behavior and inconsistent transaction processing during live testing.
 
 ## Quick Start
 
-### Option A: Run The Current Studio DApp
+### Option A: Run The Main DApp
 
 ```bash
-cd gen-ethos-studionet/frontend
+cd frontend
 npm install
 npm run dev -- --port 3001
 ```
@@ -132,10 +132,10 @@ Default local URL:
 http://localhost:3001
 ```
 
-### Option B: Run The Bradbury Variant
+### Option B: Run The Bradbury Testnet App
 
 ```bash
-cd frontend
+cd gen-ethos-bradbury/frontend
 npm install
 npm run dev
 ```
@@ -148,11 +148,11 @@ http://localhost:3000
 
 ## Environment Variables
 
-### Current Studio DApp
+### Main DApp
 
 File:
 
-- [gen-ethos-studionet/frontend/.env.local](gen-ethos-studionet/frontend/.env.local)
+- [frontend/.env.local](frontend/.env.local)
 
 Current values:
 
@@ -161,11 +161,11 @@ NEXT_PUBLIC_GENLAYER_RPC=https://studio.genlayer.com/api
 NEXT_PUBLIC_CONTRACT_ADDRESS=0x34AE1198bef2447A2e33ed80C9E89F2DB70617A5
 ```
 
-### Bradbury Variant
+### Bradbury Backup Testnet
 
 File:
 
-- [frontend/.env.local](frontend/.env.local)
+- [gen-ethos-bradbury/frontend/.env.local](gen-ethos-bradbury/frontend/.env.local)
 
 Typical values:
 
@@ -184,12 +184,11 @@ Important:
 
 The app relies on an EIP-1193 wallet such as MetaMask.
 
-### Current Recommended Setup
+### Main DApp Setup
 
-- Chain ID: `61999`
-- RPC: `https://studio.genlayer.com/api`
+- Use the RPC and chain configuration currently defined inside [frontend/.env.local](frontend/.env.local) and [frontend/src/lib/wagmi.ts](frontend/src/lib/wagmi.ts).
 
-### Bradbury Variant Setup
+### Bradbury Backup Setup
 
 - Chain ID: `4221`
 - RPC: `https://rpc-bradbury.genlayer.com`
@@ -341,7 +340,7 @@ The current frontend includes a few important fixes made during testing:
 
 ## Scripts
 
-Both frontend variants expose the same main scripts:
+Both frontend setups expose the same main scripts:
 
 ```bash
 npm run dev
@@ -368,7 +367,7 @@ The key product wedge is simple:
 ## Related Docs
 
 - [Frontend README](frontend/README.md)
-- [Studio Frontend README](gen-ethos-studionet/frontend/README.md)
+- [Bradbury Frontend README](gen-ethos-bradbury/frontend/README.md)
 - [Pitch Pack](docs/pitch.md)
 - [Slides Outline](docs/slides.md)
 

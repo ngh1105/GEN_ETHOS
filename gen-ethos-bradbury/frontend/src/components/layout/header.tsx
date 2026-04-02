@@ -46,7 +46,7 @@ export function Header() {
         <div className="hidden items-center gap-2 border-2 border-black bg-[#CCFF00] px-3 py-1.5 dark:border-white sm:flex">
           <Globe className="h-3.5 w-3.5 animate-pulse text-black" weight="bold" />
           <span className="pt-0.5 font-mono text-[10px] font-black uppercase tracking-[0.15em] text-black">
-            GENLAYER STUDIO NETWORK
+            GENLAYER BRADBURY TESTNET
           </span>
         </div>
       </div>
@@ -91,7 +91,7 @@ export function Header() {
                             return;
                           }
 
-                          const chainId = `0x${(61999).toString(16)}`;
+                          const chainId = `0x${(4221).toString(16)}`;
 
                           try {
                             await provider.request({
@@ -106,10 +106,10 @@ export function Header() {
                                   params: [
                                     {
                                       chainId,
-                                      chainName: "GenLayer Studio Network",
+                                      chainName: "GenLayer Bradbury Testnet",
                                       nativeCurrency: { name: "GEN", symbol: "GEN", decimals: 18 },
-                                      rpcUrls: ["https://studio.genlayer.com/api"],
-                                      blockExplorerUrls: ["https://zksync-os-testnet-genlayer.explorer.zksync.dev"],
+                                      rpcUrls: ["https://rpc-bradbury.genlayer.com"],
+                                      blockExplorerUrls: ["https://explorer-bradbury.genlayer.com"],
                                     },
                                   ],
                                 });
@@ -118,7 +118,7 @@ export function Header() {
                                   console.error("[DEV] Add network error:", addError);
                                 }
                                 toast.error(
-                                  "Could not add the Studio network automatically. Please add it manually in wallet."
+                                  "Could not add GenLayer network automatically. Please add it manually in wallet."
                                 );
                               }
                             } else {

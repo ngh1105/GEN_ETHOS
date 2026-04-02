@@ -22,7 +22,7 @@ import {
   mockRequestAudit,
   MOCK_WALLET_ADDRESS,
 } from "@/lib/mock/genethos-mock";
-import { genlayerStudioNetwork } from "@/lib/wagmi";
+import { genlayerTestnet } from "@/lib/wagmi";
 import type {
   CompanyAuditPage,
   PlatformStats,
@@ -76,8 +76,8 @@ function useDynamicClient() {
     if (!provider) return client;
 
     return createClient({
-      chain: genlayerStudioNetwork,
-      endpoint: process.env.NEXT_PUBLIC_GENLAYER_RPC || "https://studio.genlayer.com/api",
+      chain: genlayerTestnet,
+      endpoint: process.env.NEXT_PUBLIC_GENLAYER_RPC || "https://rpc-bradbury.genlayer.com",
       provider,
     });
   }, []);
